@@ -1,5 +1,7 @@
 .header {
     display: flex;
+    justify-content: space-between;
+    padding-right: 2rem;
 }
 
 .logoText {
@@ -11,7 +13,7 @@
 .travel,
 .op {
     color: white;
-    font-size: 30px;
+    font-size: 1.8rem;
     font-style: normal;
     line-height: 48px;
 }
@@ -22,4 +24,9 @@
 
 .travel {
     font-weight: 600;
+}
+
+.navbarWrapper {
+    margin-top: 2.375rem;
+    margin-right: 1.1rem;
 }
