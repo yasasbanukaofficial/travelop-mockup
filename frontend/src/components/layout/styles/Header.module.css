@@ -1,0 +1,25 @@
+.header {
+    display: flex;
+}
+
+.logoText {
+    display: flex;
+    margin-top: 2.85rem;
+    margin-left: 5.87rem;
+}
+
+.travel,
+.op {
+    color: white;
+    font-size: 30px;
+    font-style: normal;
+    line-height: 48px;
+}
+
+.op {
+    font-weight: 200;
+}
+
+.travel {
+    font-weight: 600;
+}
