@@ -1,18 +1,20 @@
 import styles from "@/components/ui/styles/Button.module.css";
-import Link from "next/link";
 import { michroma } from "@/lib/fonts";
 
-interface ButtonProps {
+export default function Button({
+  text,
+  onClick,
+}: {
   text: string;
-  href: string;
-}
-
-export default function Button({ text, href }: ButtonProps) {
+  onClick?: () => void;
+}) {
   return (
-    <Link href={href}>
-      <div className={styles.btnContainer}>
-        <p className={`${michroma.className} ${styles.btnText}`}>{text}</p>
-      </div>
-    </Link>
+    <button
+      onClick={onClick}
+      className={`${styles.btnContainer} ${michroma.className}`}
+      type="button"
+    >
+      <span className={styles.btnText}>{text}</span>
+    </button>
   );
 }

@@ -1,11 +1,19 @@
+"use client";
 import Header from "@/components/layout/Header";
 import LiquidChrome from "@/components/ui/LiquidChrome";
 import { museoModerno } from "@/lib/fonts";
 import styles from "@/app/styles/page.module.css";
 import Button from "@/components/ui/Button";
 import BlurText from "@/components/ui/BlurText";
+import { useState } from "react";
+import DisclaimerPopUp from "@/components/layout/DisclaimerPopUp";
 
 export default function Home() {
+  const [showPopUpDisplay, setPopUpDisplay] = useState(false);
+  const handlesPopUp = () => {
+    setPopUpDisplay(!showPopUpDisplay);
+  };
+
   return (
     <>
       <div className="relative w-screen h-screen overflow-hidden">
@@ -26,10 +34,11 @@ export default function Home() {
             text="Plan trips 5x faster using Artificial Intelligence"
             className={`${museoModerno.className} ${styles.heroTitle}`}
           />
+          {showPopUpDisplay && <DisclaimerPopUp handlesPopUp={handlesPopUp} />}
           <p className={`${museoModerno.className} ${styles.heroDescription}`}>
             Tell Travelop where, when, and why we’ll handle the how.
           </p>
-          <Button href="" text="Speak to Agent" />
+          <Button onClick={handlesPopUp} text="Speak to Agent" />
         </div>
       </div>
     </>
