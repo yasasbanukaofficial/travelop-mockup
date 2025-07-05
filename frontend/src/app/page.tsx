@@ -3,6 +3,7 @@ import LiquidChrome from "@/components/ui/LiquidChrome";
 import { museoModerno } from "@/lib/fonts";
 import styles from "@/app/styles/page.module.css";
 import Button from "@/components/ui/Button";
+import BlurText from "@/components/ui/BlurText";
 
 export default function Home() {
   return (
@@ -21,9 +22,10 @@ export default function Home() {
         <div
           className={`flex flex-col items-center justify-center ${styles.heroContainer}`}
         >
-          <p className={`${museoModerno.className} ${styles.heroTitle}`}>
-            Plan trips 5x faster using Artificial Intelligence
-          </p>
+          <BlurText
+            text="Plan trips 5x faster using Artificial Intelligence"
+            className={`${museoModerno.className} ${styles.heroTitle}`}
+          />
           <p className={`${museoModerno.className} ${styles.heroDescription}`}>
             Tell Travelop where, when, and why we’ll handle the how.
           </p>
