@@ -1,0 +1,23 @@
+.heroContainer {
+    margin: auto;
+}
+
+.heroTitle,
+.heroDescription {
+    margin: 0vw 1vw;
+    text-align: center;
+    line-height: 4.6rem;
+}
+
+.heroTitle {
+    font-size: 4rem;
+    max-width: 48rem;
+    font-weight: 600px;
+}
+
+.heroDescription {
+    font-size: 2rem;
+    font-weight: 200;
+    font-style: normal;
+    margin-top: 1.9vh;
+}
