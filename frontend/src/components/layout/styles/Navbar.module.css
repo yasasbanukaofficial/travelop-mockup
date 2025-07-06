@@ -24,13 +24,12 @@
 }
 
 .btnText {
-    padding: 10px;
+    text-align: center;
 }
 
 .btnContainer {
     display: flex;
     height: 5.2vh;
-    padding: 0.2vh 1vh;
     flex-direction: column;
     align-items: center;
     gap: 1.6vh;
@@ -43,4 +42,6 @@
     font-style: normal;
     font-weight: 400;
     cursor: pointer;
+    justify-content: center;
+    padding: 0.2vh 1vw;
 }

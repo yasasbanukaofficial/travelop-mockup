@@ -45,8 +45,7 @@ export default function Home() {
               handlesPopUp={handlesDisclaimerPopUp}
               popUpTitle="DISCLAIMER"
               popUpDescription="Travelop uses an AI voice agent, not a real person. The site will
-                                speak aloud please check your volume. Voice features need your
-                                microphone permission. By continuing, you agree to talk with an AI."
+                                speak aloud please check your volume. By continuing, you agree to talk with an AI."
               btnText="Continue"
               onClickAction={handlesPermissionPopUp}
             />
