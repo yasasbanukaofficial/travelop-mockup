@@ -1,36 +1,55 @@
 "use client";
 import Header from "@/components/layout/Header";
-import LiquidChrome from "@/components/ui/LiquidChrome";
 import { museoModerno } from "@/lib/fonts";
 import styles from "@/app/styles/page.module.css";
 import Button from "@/components/ui/Button";
 import BlurText from "@/components/ui/BlurText";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import PopUp from "@/components/layout/PopUp";
+import Background from "@/components/layout/Background";
 
 export default function Home() {
+  const router = useRouter();
+
   const [showDisclaimerPopUpDisplay, setDisclaimerPopUpDisplay] =
     useState(false);
   const [showPermissionPopUpDisplay, setPermissionPopUpDisplay] =
     useState(false);
+
+  const [micGranted, setMicGranted] = useState(false);
+
   const handlesDisclaimerPopUp = () => {
     setDisclaimerPopUpDisplay(!showDisclaimerPopUpDisplay);
   };
   const handlesPermissionPopUp = () => {
     setPermissionPopUpDisplay(!showPermissionPopUpDisplay);
   };
+  const visitAgentPage = () => {
+    router.push("/agent");
+  };
+  const handleDisclaimerContinue = () => {
+    setDisclaimerPopUpDisplay(false);
+    setPermissionPopUpDisplay(true);
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then(() => setMicGranted(true))
+      .catch(() => setMicGranted(false));
+  };
+
+  const isRequestGranted = async () => {
+    if (micGranted) {
+      visitAgentPage();
+    } else {
+      alert(
+        "Microphone permission was denied. Please allow it in your browser settings.",
+      );
+    }
+  };
 
   return (
     <>
-      <div className="relative w-screen h-screen overflow-hidden">
-        <LiquidChrome
-          baseColor={[0.0, 0.1, 0.1]}
-          speed={0.3}
-          amplitude={0.3}
-          interactive={false}
-        />
-        <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
-      </div>
+      <Background />
       <div className="absolute inset-0 flex flex-col max-w-full w-full">
         <Header handlesPopUp={handlesDisclaimerPopUp} />
         <div
@@ -47,7 +66,7 @@ export default function Home() {
               popUpDescription="Travelop uses an AI voice agent, not a real person. The site will
                                 speak aloud please check your volume. By continuing, you agree to talk with an AI."
               btnText="Continue"
-              onClickAction={handlesPermissionPopUp}
+              onClickAction={handleDisclaimerContinue}
             />
           )}
           {showPermissionPopUpDisplay && (
@@ -56,7 +75,7 @@ export default function Home() {
               popUpTitle="BEFORE YOU CONTINUE"
               popUpDescription="For the best experience, please grant microphone access to continue your conversation."
               btnText="Continue"
-              onClickAction={handlesPermissionPopUp}
+              onClickAction={isRequestGranted}
             />
           )}
           <p className={`${museoModerno.className} ${styles.heroDescription}`}>
