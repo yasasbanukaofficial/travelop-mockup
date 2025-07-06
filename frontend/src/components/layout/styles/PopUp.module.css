@@ -1,7 +1,7 @@
-.disclaimerContainer {
+.popUpContainer {
     max-width: 30vw;
     padding: 3vh 2vw;
-    height: 45vh;
+    height: fit-content;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@
     }
 }
 
-.disclaimerTitle {
+.popUpTitle {
     color: #fff;
     font-family: Michroma;
     font-size: 1.5rem;
@@ -30,7 +30,7 @@
     font-weight: 400;
 }
 
-.disclaimerDescription {
+.popUpDescription {
     display: flex;
     flex-direction: column;
     justify-content: center;

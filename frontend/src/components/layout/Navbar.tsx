@@ -2,7 +2,11 @@ import styles from "@/components/layout/styles/Navbar.module.css";
 import { museoModerno } from "@/lib/fonts";
 import Link from "next/link";
 
-export default function Navabar() {
+export default function Navabar({
+  handlesPopUp,
+}: {
+  handlesPopUp: () => void;
+}) {
   return (
     <div className={styles.navbar}>
       <Link href="">
@@ -11,13 +15,11 @@ export default function Navabar() {
       <Link href="/about">
         <p className={`${museoModerno.className} ${styles.links}`}>ABOUT</p>
       </Link>
-      <Link href="">
-        <div className={styles.btnContainer}>
-          <p className={`${museoModerno.className} ${styles.btnText}`}>
-            TALK NOW
-          </p>
-        </div>
-      </Link>
+      <div className={styles.btnContainer} onClick={handlesPopUp}>
+        <p className={`${museoModerno.className} ${styles.btnText}`}>
+          TALK NOW
+        </p>
+      </div>
     </div>
   );
 }

@@ -6,12 +6,18 @@ import styles from "@/app/styles/page.module.css";
 import Button from "@/components/ui/Button";
 import BlurText from "@/components/ui/BlurText";
 import { useState } from "react";
-import DisclaimerPopUp from "@/components/layout/DisclaimerPopUp";
+import PopUp from "@/components/layout/PopUp";
 
 export default function Home() {
-  const [showPopUpDisplay, setPopUpDisplay] = useState(false);
-  const handlesPopUp = () => {
-    setPopUpDisplay(!showPopUpDisplay);
+  const [showDisclaimerPopUpDisplay, setDisclaimerPopUpDisplay] =
+    useState(false);
+  const [showPermissionPopUpDisplay, setPermissionPopUpDisplay] =
+    useState(false);
+  const handlesDisclaimerPopUp = () => {
+    setDisclaimerPopUpDisplay(!showDisclaimerPopUpDisplay);
+  };
+  const handlesPermissionPopUp = () => {
+    setPermissionPopUpDisplay(!showPermissionPopUpDisplay);
   };
 
   return (
@@ -26,7 +32,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
       </div>
       <div className="absolute inset-0 flex flex-col max-w-full w-full">
-        <Header />
+        <Header handlesPopUp={handlesDisclaimerPopUp} />
         <div
           className={`flex flex-col items-center justify-center ${styles.heroContainer}`}
         >
@@ -34,11 +40,30 @@ export default function Home() {
             text="Plan trips 5x faster using Artificial Intelligence"
             className={`${museoModerno.className} ${styles.heroTitle}`}
           />
-          {showPopUpDisplay && <DisclaimerPopUp handlesPopUp={handlesPopUp} />}
+          {showDisclaimerPopUpDisplay && (
+            <PopUp
+              handlesPopUp={handlesDisclaimerPopUp}
+              popUpTitle="DISCLAIMER"
+              popUpDescription="Travelop uses an AI voice agent, not a real person. The site will
+                                speak aloud please check your volume. Voice features need your
+                                microphone permission. By continuing, you agree to talk with an AI."
+              btnText="Continue"
+              onClickAction={handlesPermissionPopUp}
+            />
+          )}
+          {showPermissionPopUpDisplay && (
+            <PopUp
+              handlesPopUp={handlesPermissionPopUp}
+              popUpTitle="BEFORE YOU CONTINUE"
+              popUpDescription="For the best experience, please grant microphone access to continue your conversation."
+              btnText="Continue"
+              onClickAction={handlesPermissionPopUp}
+            />
+          )}
           <p className={`${museoModerno.className} ${styles.heroDescription}`}>
             Tell Travelop where, when, and why we’ll handle the how.
           </p>
-          <Button onClick={handlesPopUp} text="Speak to Agent" />
+          <Button onClick={handlesDisclaimerPopUp} text="Speak to Agent" />
         </div>
       </div>
     </>
