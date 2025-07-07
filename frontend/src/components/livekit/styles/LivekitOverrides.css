@@ -1,0 +1,32 @@
+.lk-disconnect-button {
+    background: darkred;
+    border-radius: 30px;
+    color: white;
+    padding: 10px 20px;
+    width: auto;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 30px;
+}
+
+.lk-mic-button,
+.lk-camera-button {
+    background-color: white !important;
+    color: black !important;
+    border-color: black !important;
+}
+
+.lk-audio-bar {
+    width: 30px !important;
+    height: 20px;
+    margin: 0 2px;
+    background-color: #9a9a9a !important;
+    transition:
+        background-color 0.3s,
+        height 0.3s;
+}
+
+.lk-audio-bar.lk-highlighted {
+    background-color: #00ffe1 !important;
+    height: 20px;
+}
