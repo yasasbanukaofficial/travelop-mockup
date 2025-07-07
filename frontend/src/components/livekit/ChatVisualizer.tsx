@@ -53,9 +53,10 @@ export function ChatVisualizer() {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={`${styles.section} ${styles.messageSection}`}>
-        <h1 className="text-[24px] mt-1 mb-8">Chat</h1>
-        <div className={styles.msgSection}>
+      <div
+        className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.messageSection}`}
+      >
+        <div className={`${styles.msgSection}`}>
           {messages.map((msg, index) => {
             const isAgent = msg.from.identity === "agent";
             return (
@@ -93,8 +94,9 @@ export function ChatVisualizer() {
         </div>
       </div>
 
-      <div className={`${styles.section} ${styles.visualizerSection}`}>
-        <h1 className="text-[24px] mt-1">Visualizer</h1>
+      <div
+        className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.visualizerSection}`}
+      >
         <BarVisualizer
           state={state}
           trackRef={audioTrack}

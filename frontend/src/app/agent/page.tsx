@@ -15,12 +15,17 @@ export default function Agent() {
     <div className="absolute inset-0 flex flex-col max-w-full w-full">
       <Header />
       <div className={`${styles.sectionContainer}`}>
-        <div
-          className={`${styles.leftSection} w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md`}
-        ></div>
-        <div
-          className={`${styles.rightSection} w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md`}
-        ></div>
+        <LiveKitRoom
+          serverUrl={serverUrl}
+          token={token}
+          connect={true}
+          video={false}
+          audio={false}
+          onDisconnected={() => router.push("/")}
+        >
+          <RoomAudioRenderer />
+          <SimpleVoiceAssistant />
+        </LiveKitRoom>
       </div>
     </div>
   );
