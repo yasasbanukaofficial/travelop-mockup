@@ -5,21 +5,23 @@ import Link from "next/link";
 export default function Navabar({
   handlesPopUp,
 }: {
-  handlesPopUp: () => void;
+  handlesPopUp?: () => void;
 }) {
   return (
     <div className={styles.navbar}>
-      <Link href="">
+      <Link href="/">
         <p className={`${museoModerno.className} ${styles.links}`}>HOME</p>
       </Link>
       <Link href="/about">
         <p className={`${museoModerno.className} ${styles.links}`}>ABOUT</p>
       </Link>
-      <div className={styles.btnContainer} onClick={handlesPopUp}>
-        <p className={`${museoModerno.className} ${styles.btnText}`}>
-          TALK NOW
-        </p>
-      </div>
+      {handlesPopUp && (
+        <div className={styles.btnContainer} onClick={handlesPopUp}>
+          <p className={`${museoModerno.className} ${styles.btnText}`}>
+            TALK NOW
+          </p>
+        </div>
+      )}
     </div>
   );
 }

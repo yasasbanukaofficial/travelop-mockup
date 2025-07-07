@@ -49,7 +49,6 @@ export default function Home() {
 
   return (
     <>
-      <Background />
       <div className="absolute inset-0 flex flex-col max-w-full w-full">
         <Header handlesPopUp={handlesDisclaimerPopUp} />
         <div
