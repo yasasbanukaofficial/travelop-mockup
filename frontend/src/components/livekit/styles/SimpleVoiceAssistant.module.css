@@ -1,6 +1,6 @@
 .mainContainer {
     display: flex;
     flex-direction: column;
-    gap: 0.3vh;
+    gap: 2vh;
     align-items: center;
 }
