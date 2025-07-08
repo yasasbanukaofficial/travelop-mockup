@@ -1,0 +1,15 @@
+[project]
+name = "backend"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "livekit-agents>=1.1.5",
+    "livekit-plugins-noise-cancellation>=0.2.5",
+    "livekit-plugins-openai>=1.1.5",
+    "livekit-plugins-silero>=1.1.5",
+    "livekit-plugins-speechmatics>=1.1.5",
+    "pymongo>=4.13.2",
+    "python-dotenv>=1.1.1",
+]
