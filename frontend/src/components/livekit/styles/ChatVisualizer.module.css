@@ -18,7 +18,7 @@
     flex-direction: column;
 }
 
-.visualizerSection {
+.detailDisplaySection {
     border-radius: 30px;
 }
 
@@ -115,4 +115,13 @@
     display: flex;
     gap: 8px;
     justify-content: flex-end;
+}
+
+.visualizer {
+    width: 100%;
+    height: 20vh; /* or something visible */
+}
+
+.visualizerContainer {
+    display: flex;
 }

@@ -30,3 +30,18 @@
     background-color: #00ffe1 !important;
     height: 20px;
 }
+
+[data-role="agent"] .lk-audio-bar {
+    width: 30px !important;
+    height: 20px;
+    margin: 0 2px;
+    background-color: #9a9a9a !important;
+    transition:
+        background-color 0.3s,
+        height 0.3s;
+}
+
+[data-role="agent"] .lk-audio-bar.lk-highlighted {
+    background-color: lime !important;
+    height: 20px;
+}

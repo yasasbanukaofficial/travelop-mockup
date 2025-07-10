@@ -7,6 +7,7 @@ import {
 import styles from "./styles/ChatVisualizer.module.css";
 import { useEffect, useState } from "react";
 import { Track } from "livekit-client";
+import { Limelight } from "next/font/google";
 
 export function ChatVisualizer() {
   const { state, audioTrack, agentTranscriptions } = useVoiceAssistant();
@@ -56,6 +57,23 @@ export function ChatVisualizer() {
       <div
         className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.messageSection}`}
       >
+        <div className={`${styles.visualizerContainer}`}>
+          <BarVisualizer
+            data-role="agent"
+            state={state}
+            trackRef={audioTrack}
+            className={`${styles.visualizer} ${styles.agentVisualizer}`}
+            barCount={5}
+          />
+          <BarVisualizer
+            state={state}
+            trackRef={audioTrack}
+            className={`${styles.visualizer} ${styles.userVisualizer}`}
+            barCount={5}
+            style={{ color: "lime" }}
+          />
+        </div>
+
         <div className={`${styles.msgSection}`}>
           {messages.map((msg, index) => {
             const isAgent = msg.from.identity === "agent";
@@ -95,15 +113,8 @@ export function ChatVisualizer() {
       </div>
 
       <div
-        className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.visualizerSection}`}
-      >
-        <BarVisualizer
-          state={state}
-          trackRef={audioTrack}
-          className={styles.visualizer}
-          barCount={5}
-        />
-      </div>
+        className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.detailDisplaySection}`}
+      ></div>
     </div>
   );
 }
