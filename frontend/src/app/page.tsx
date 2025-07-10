@@ -72,7 +72,7 @@ export default function Home() {
             <PopUp
               handlesPopUp={handlesPermissionPopUp}
               popUpTitle="BEFORE YOU CONTINUE"
-              popUpDescription="For the best experience, please grant microphone access to continue your conversation."
+              popUpDescription="You are about to enter a conversation with an AI Agent. For the best experience, please grant microphone access to continue your conversation."
               btnText="Continue"
               onClickAction={isRequestGranted}
             />
