@@ -42,14 +42,14 @@
 
 .labelText {
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     background-color: #;
 }
 
 .valueText {
     font-weight: 400;
     padding: 0vw 0.5vw;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     border-radius: 20px;
 }
 

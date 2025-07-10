@@ -6,13 +6,14 @@ import {
 } from "@livekit/components-react";
 import styles from "./styles/ChatVisualizer.module.css";
 import { useEffect, useRef, useState } from "react";
-import { Track } from "livekit-client";
+import { LocalAudioTrack, Track } from "livekit-client";
 import { Limelight } from "next/font/google";
 import { michroma, museoModerno } from "@/lib/fonts";
 import SplitText from "../ui/SplitText";
 
 export function ChatVisualizer() {
   const { state, audioTrack, agentTranscriptions } = useVoiceAssistant();
+  const { microphoneTrack } = useLocalParticipant();
   const localParticipant = useLocalParticipant();
 
   const { segments: userSegments } = useTrackTranscription({
@@ -99,13 +100,13 @@ export function ChatVisualizer() {
             state={state}
             trackRef={audioTrack}
             className={`${styles.visualizer} ${styles.agentVisualizer}`}
-            barCount={5}
+            barCount={4}
           />
           <BarVisualizer
             state={state}
-            trackRef={audioTrack}
+            trackRef={microphoneTrack?.track}
             className={`${styles.visualizer} ${styles.userVisualizer}`}
-            barCount={5}
+            barCount={4}
             style={{ color: "lime" }}
           />
         </div>
@@ -184,7 +185,7 @@ export function ChatVisualizer() {
           <hr className="mt-4 mb-4" />
           <div className={`${styles.dataFieldContainer}`}>
             <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Travel Type:
+              Travel type:
             </p>
             <p className={`${michroma.className} ${styles.valueText}`}>
               {travelDetails?.interest || ""}
