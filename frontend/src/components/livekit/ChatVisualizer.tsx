@@ -5,7 +5,7 @@ import {
   useVoiceAssistant,
 } from "@livekit/components-react";
 import styles from "./styles/ChatVisualizer.module.css";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Track } from "livekit-client";
 import { Limelight } from "next/font/google";
 
@@ -20,6 +20,14 @@ export function ChatVisualizer() {
   });
 
   const [messages, setMessages] = useState([]);
+  const scroller = useRef(null);
+  useEffect(() => {
+    scroller.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
+  });
 
   useEffect(() => {
     const msgs = [];
@@ -109,6 +117,7 @@ export function ChatVisualizer() {
               </div>
             );
           })}
+          <div ref={scroller} className="pb-2 md:pb-0"></div>
         </div>
       </div>
 

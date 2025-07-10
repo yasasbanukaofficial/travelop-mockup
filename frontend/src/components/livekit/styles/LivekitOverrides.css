@@ -42,6 +42,6 @@
 }
 
 [data-role="agent"] .lk-audio-bar.lk-highlighted {
-    background-color: lime !important;
+    background-color: lightblue !important;
     height: 20px;
 }

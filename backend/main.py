@@ -87,6 +87,17 @@ class AskDetailsAgent(BaseAgent):
                 """
         )
 
+    async def add_or_update_user(self, update_dict):
+        """
+            Adds user details to the database.
+        """
+        user_collection.update_one(
+            {"name": self.context.user_details.name},
+            {"$set": update_dict},
+            upsert=True
+        )
+
+
     async def on_enter(self) -> None:
         await self.session.say("Hello Welcome to travelop where you plan your travel with ease. Would you state your name please?")
 
@@ -96,6 +107,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's name, acknowledge it and store it in the context and transition to asking their age.
         """
         self.context.user_details.name = name
+        await self.add_or_update_user({"name": name})
         return f"User's name is {name} remember it throughout the conversation and continue questioning."
 
     @function_tool
@@ -104,6 +116,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's age and store it in the context and transition to asking their gender.
         """
         self.context.user_details.age = age
+        await self.add_or_update_user({"age": age})
         return f"User is {age} years old. Now, ask politely for the user's gender."
 
     @function_tool()
@@ -112,6 +125,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's gender and store it in the context and transition to asking their user interests.
         """
         self.context.user_details.gender = gender
+        await self.add_or_update_user({"gender": gender})
         return f"User is a {gender}. Now continue asking."
 
 
@@ -121,6 +135,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's interests in traveling, acknowledge it and store it in the context and transition to asking their mobility.
         """
         self.context.user_details.interests = interest
+        await self.add_or_update_user({"interest": interest})
         return f"User likes {interest} surroundings. Before continuing to next question tell some best nature categories related to users {interest} and continue questioning."
 
 
@@ -130,6 +145,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's mobility and store it in the context and transition to asking their travel location.
         """
         self.context.user_details.mobility = mobility
+        await self.add_or_update_user({"mobility": mobility})
         return f"User's mobility way is this {mobility}. Now continue questioning"
 
     @function_tool()
@@ -138,6 +154,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's traveling location and store it in the context and transition to asking their budget.
         """
         self.context.travel_details.location = location
+        await self.add_or_update_user({"location": location})
         return f"User's travelling location is {location}. Tell some few places to visit according to his {location} and continue questioning."
 
     @function_tool()
@@ -146,7 +163,7 @@ class AskDetailsAgent(BaseAgent):
         Receives the user's budget and store it in the context and database, summarize the details and end the conversation.
         """
         self.context.travel_details.budget = budget
-        await self.add_to_database()
+        await self.add_or_update_user({"budget": budget})
         return f"User's budget is {budget}. Explain if this amount is enough for a trip and start summarizing and end the conversation"
 
 
@@ -189,6 +206,7 @@ async def entrypoint(ctx: JobContext) -> None:
             noise_cancellation=noise_cancellation.BVC(),
         ),
     )
+
 
 
 if __name__ == "__main__":
