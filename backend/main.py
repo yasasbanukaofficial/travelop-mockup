@@ -164,7 +164,7 @@ class AskDetailsAgent(BaseAgent):
         """
         self.context.travel_details.budget = budget
         await self.add_or_update_user({"budget": budget})
-        return f"User's budget is {budget}. Explain if this amount is enough for a trip and start summarizing and end the conversation"
+        return f"User's budget is {budget}. After adding the user button to the db, explain if this amount is enough for a trip and start summarizing and end the conversation"
 
 
     async def add_to_database(self):
