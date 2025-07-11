@@ -84,7 +84,7 @@ export function ChatVisualizer() {
 
     const timer = setTimeout(() => {
       fetchDetails();
-    }, 1000); // 1 sec of silence = done speaking
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [userSegments]);
