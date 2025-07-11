@@ -7,15 +7,14 @@ export async function GET() {
   );
   const db = client.db("travelop");
 
-  // Sort by _id descending to get newest first, limit 1
   const latestUser = await db
     .collection("users")
     .find({})
-    .sort({ _id: -1 }) // descending order by _id (newest first)
+    .sort({ _id: -1 })
     .limit(1)
     .toArray();
 
   await client.close();
 
-  return NextResponse.json(latestUser[0] || {}); // return the single latest doc or empty obj
+  return NextResponse.json(latestUser[0] || {});
 }
