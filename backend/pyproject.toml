@@ -6,11 +6,15 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "certifi>=2025.7.9",
+    "fastapi>=0.116.1",
+    "httpx>=0.28.1",
     "livekit-agents>=1.1.5",
     "livekit-plugins-noise-cancellation>=0.2.5",
     "livekit-plugins-openai>=1.1.5",
     "livekit-plugins-silero>=1.1.5",
     "livekit-plugins-speechmatics>=1.1.5",
+    "pydantic>=2.11.7",
     "pymongo>=4.13.2",
     "python-dotenv>=1.1.1",
+    "uvicorn>=0.35.0",
 ]
