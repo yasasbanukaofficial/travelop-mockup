@@ -10,6 +10,7 @@ import { LocalAudioTrack, Track } from "livekit-client";
 import { Limelight } from "next/font/google";
 import { michroma, museoModerno } from "@/lib/fonts";
 import SplitText from "../ui/SplitText";
+import api from "@/app/api/route";
 
 export function ChatVisualizer() {
   const { state, audioTrack, agentTranscriptions } = useVoiceAssistant();
@@ -63,31 +64,28 @@ export function ChatVisualizer() {
     setMessages(msgs);
   }, [userSegments, agentTranscriptions]);
 
-  const [travelDetails, setTravelDetails] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    interest: "",
-    mobility: "",
-    location: "",
-    budget: "",
-  });
+  const [userDetails, setUserDetails] = useState({});
+  const [travelDetails, setTravelDetails] = useState({});
+  const fetchDetails = async () => {
+    try {
+      const res = await fetch("http://localhost:8000/context");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log("Fetched data:", data);
 
-  async function fetchDetails() {
-    const res = await fetch(`/api`);
-    const data = await res.json();
-    setTravelDetails(data);
-  }
+      setUserDetails(data.user_details || {});
+      setTravelDetails(data.travel_details || {});
+    } catch (error) {
+      console.error("Error fetching details", error);
+    }
+  };
 
   useEffect(() => {
-    if (!userSegments || userSegments.length === 0) return;
-
-    const timer = setTimeout(() => {
-      fetchDetails();
-    }, 3000);
-
-    return () => clearTimeout(timer);
-  }, [userSegments]);
+    const interval = setInterval(fetchDetails, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className={styles.mainContainer}>
@@ -163,7 +161,7 @@ export function ChatVisualizer() {
               Name:
             </p>
             <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.name || ""}
+              {userDetails?.name || ""}
             </p>
           </div>
           <div className={`${styles.dataFieldContainer}`}>
@@ -171,7 +169,7 @@ export function ChatVisualizer() {
               Age:
             </p>
             <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.age || ""}
+              {userDetails?.age || ""}
             </p>
           </div>
           <div className={`${styles.dataFieldContainer}`}>
@@ -179,7 +177,7 @@ export function ChatVisualizer() {
               Gender:
             </p>
             <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.gender || ""}
+              {userDetails?.gender || ""}
             </p>
           </div>
           <hr className="mt-4 mb-4" />
@@ -188,7 +186,7 @@ export function ChatVisualizer() {
               Travel type:
             </p>
             <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.interest || ""}
+              {userDetails?.interests || ""}
             </p>
           </div>
           <div className={`${styles.dataFieldContainer}`}>
@@ -196,7 +194,7 @@ export function ChatVisualizer() {
               Mobility:
             </p>
             <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.mobility || ""}
+              {userDetails?.mobility || ""}
             </p>
           </div>
           <div className={`${styles.dataFieldContainer}`}>
