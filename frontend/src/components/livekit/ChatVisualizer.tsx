@@ -11,6 +11,7 @@ import { Limelight } from "next/font/google";
 import { michroma, museoModerno } from "@/lib/fonts";
 import SplitText from "../ui/SplitText";
 import api from "@/app/api/route";
+import { Controls } from "./Controls";
 
 export function ChatVisualizer() {
   const { state, audioTrack, agentTranscriptions } = useVoiceAssistant();
@@ -88,133 +89,139 @@ export function ChatVisualizer() {
   }, []);
 
   return (
-    <div className={styles.mainContainer}>
-      <div
-        className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.messageSection}`}
-      >
-        <div className={`${styles.visualizerContainer}`}>
-          <BarVisualizer
-            data-role="agent"
-            state={state}
-            trackRef={audioTrack}
-            className={`${styles.visualizer} ${styles.agentVisualizer}`}
-            barCount={4}
-          />
-          <BarVisualizer
-            state={state}
-            trackRef={microphoneTrack?.track}
-            className={`${styles.visualizer} ${styles.userVisualizer}`}
-            barCount={4}
-            style={{ color: "lime" }}
-          />
-        </div>
-
-        <div className={`${styles.msgSection}`}>
-          {messages.map((msg, index) => {
-            const isAgent = msg.from.identity === "agent";
-            return (
-              <div
-                key={index}
-                className={`${styles.chatContainer} ${
-                  isAgent ? styles.userContainer : styles.agentContainer
-                }`}
-              >
+    <>
+      <div className={styles.mainContainer}>
+        <div
+          className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.messageSection}`}
+        >
+          <div className={styles.agentVisualizerContainer}>
+            <BarVisualizer
+              data-role="agent"
+              state={state}
+              trackRef={audioTrack}
+              className={`${styles.visualizer} ${styles.agentVisualizer}`}
+              barCount={4}
+            />
+          </div>
+          <div className={`${styles.msgSection}`}>
+            {messages.map((msg, index) => {
+              const isAgent = msg.from.identity === "agent";
+              return (
                 <div
-                  className={`${styles.chatBubble} ${
-                    isAgent ? styles.agentBubble : styles.userBubble
+                  key={index}
+                  className={`${styles.chatContainer} ${
+                    isAgent ? styles.userContainer : styles.agentContainer
                   }`}
                 >
                   <div
-                    className={`${styles.chatHeader} ${isAgent ? styles.agentHeader : styles.userHeader}`}
+                    className={`${styles.chatBubble} ${
+                      isAgent ? styles.agentBubble : styles.userBubble
+                    }`}
                   >
-                    <span className={styles.name}>{msg.from.name}</span>
-                    <span className={styles.time}>
-                      {new Date(msg.timestamp).toLocaleTimeString([], {
-                        hour: "2-digit",
-                        minute: "2-digit",
-                      })}
-                    </span>
+                    <div
+                      className={`${styles.chatHeader} ${isAgent ? styles.agentHeader : styles.userHeader}`}
+                    >
+                      <span className={styles.name}>{msg.from.name}</span>
+                      <span className={styles.time}>
+                        {new Date(msg.timestamp).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </span>
+                    </div>
+                    <p
+                      className={`${styles.chatMessage} ${isAgent ? styles.agentMsg : styles.userMsg}`}
+                    >
+                      {msg.message}
+                    </p>
                   </div>
-                  <p
-                    className={`${styles.chatMessage} ${isAgent ? styles.agentMsg : styles.userMsg}`}
-                  >
-                    {msg.message}
-                  </p>
                 </div>
-              </div>
-            );
-          })}
-          <div ref={scroller} className="pb-2 md:pb-0"></div>
+              );
+            })}
+            <div ref={scroller} className="pb-2 md:pb-0"></div>
+          </div>
         </div>
-      </div>
 
-      <div
-        className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.detailDisplaySection}`}
-      >
-        <p className={`${museoModerno.className} ${styles.detailSectionTitle}`}>
-          TRAVEL DETAILS
-        </p>
-        <hr />
-        <div className={styles.userDetailSection}>
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Name:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {userDetails?.name || ""}
-            </p>
-          </div>
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Age:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {userDetails?.age || ""}
-            </p>
-          </div>
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Gender:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {userDetails?.gender || ""}
-            </p>
-          </div>
-          <hr className="mt-4 mb-4" />
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Travel type:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {userDetails?.interests || ""}
-            </p>
-          </div>
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Mobility:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {userDetails?.mobility || ""}
-            </p>
-          </div>
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Destination:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.location || ""}
-            </p>
-          </div>
-          <div className={`${styles.dataFieldContainer}`}>
-            <p className={`${museoModerno.className} ${styles.labelText}`}>
-              Budget:
-            </p>
-            <p className={`${michroma.className} ${styles.valueText}`}>
-              {travelDetails?.budget || ""}
-            </p>
+        <div
+          className={`w-full h-full backdrop-filter backdrop-brightness-60 backdrop-blur-md ${styles.section} ${styles.detailDisplaySection}`}
+        >
+          <p
+            className={`${museoModerno.className} ${styles.detailSectionTitle}`}
+          >
+            TRAVEL DETAILS
+          </p>
+          <hr />
+          <div className={styles.userDetailSection}>
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Name:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {userDetails?.name || ""}
+              </p>
+            </div>
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Age:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {userDetails?.age || ""}
+              </p>
+            </div>
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Gender:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {userDetails?.gender || ""}
+              </p>
+            </div>
+            <hr className="mt-4 mb-4" />
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Travel type:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {userDetails?.interests || ""}
+              </p>
+            </div>
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Mobility:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {userDetails?.mobility || ""}
+              </p>
+            </div>
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Destination:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {travelDetails?.location || ""}
+              </p>
+            </div>
+            <div className={`${styles.dataFieldContainer}`}>
+              <p className={`${museoModerno.className} ${styles.labelText}`}>
+                Budget:
+              </p>
+              <p className={`${michroma.className} ${styles.valueText}`}>
+                {travelDetails?.budget || ""}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <div className={`${styles.userControlBar}`}>
+        <Controls />
+        <BarVisualizer
+          data-role="user"
+          state={state}
+          trackRef={microphoneTrack?.track}
+          className={`${styles.visualizer} ${styles.userVisualizer}`}
+          barCount={4}
+        />
+      </div>
+    </>
   );
 }

@@ -149,10 +149,26 @@
 }
 
 .visualizer {
-    width: 100%;
-    height: 20vh; /* or something visible */
+    width: fit-content;
+    height: 10vh;
 }
 
 .visualizerContainer {
     display: flex;
+}
+
+.userControlBar {
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    gap: 2vw;
+    padding: 0 2vw;
+}
+
+.agentVisualizerContainer {
+    width: 100%;
+    height: fit-content;
+    margin-top: 2vh;
+    display: flex;
+    justify-content: center;
 }

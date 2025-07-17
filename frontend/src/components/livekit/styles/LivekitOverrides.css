@@ -16,25 +16,10 @@
     border-color: black !important;
 }
 
-.lk-audio-bar {
-    width: 30px !important;
-    height: 20px;
-    margin: 0 2px;
-    background-color: #9a9a9a !important;
-    transition:
-        background-color 0.3s,
-        height 0.3s;
-}
-
-.lk-audio-bar.lk-highlighted {
-    background-color: #00ffe1 !important;
-    height: 20px;
-}
-
 [data-role="agent"] .lk-audio-bar {
     width: 30px !important;
-    height: 20px;
-    margin: 0 2px;
+    height: 30px;
+    margin: -7px;
     background-color: #9a9a9a !important;
     transition:
         background-color 0.3s,
@@ -42,6 +27,21 @@
 }
 
 [data-role="agent"] .lk-audio-bar.lk-highlighted {
+    background-color: #00ffe1 !important;
+    height: 40px;
+}
+
+[data-role="user"] .lk-audio-bar {
+    width: 30px !important;
+    height: 10px;
+    margin: -7px;
+    background-color: #9a9a9a !important;
+    transition:
+        background-color 0.3s,
+        height 0.3s;
+}
+
+[data-role="user"] .lk-audio-bar.lk-highlighted {
     background-color: white !important;
-    height: 20px;
+    height: 15px;
 }

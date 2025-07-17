@@ -7,7 +7,6 @@ export function SimpleVoiceAssistant() {
   return (
     <div className={styles.mainContainer}>
       <ChatVisualizer />
-      <Controls />
     </div>
   );
 }
