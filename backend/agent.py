@@ -7,6 +7,7 @@ from livekit.agents import WorkerOptions, cli, JobContext, RoomInputOptions, get
 from livekit.agents.llm import function_tool
 from livekit.agents.voice import Agent, AgentSession
 from livekit.plugins import openai, silero, noise_cancellation, speechmatics
+from livekit.plugins.turn_detector.english import EnglishModel
 from pymongo import MongoClient
 from pydantic import BaseModel
 from main import ContextDetails
@@ -36,6 +37,7 @@ class BaseAgent(Agent):
             ),
             llm=openai.LLM(model="gpt-4o"),
             tts=openai.TTS(),
+            turn_detection=EnglishModel(),
             vad=silero.VAD.load()
         )
 
@@ -56,7 +58,7 @@ class AskDetailsAgent(BaseAgent):
                 - Budget
 
                 Ask one question at a time. Only ask for details that are not yet collected.
-                Once everything is collected, politely summarize the details with how this vacation is going to be good (dont explain too much) and end.
+                Once everything is collected, politely and simply summarize the details with how this vacation is going to be good (keep it short) and end.
                 """
         )
 
@@ -73,7 +75,10 @@ class AskDetailsAgent(BaseAgent):
 
 
     async def on_enter(self) -> None:
-        await self.session.say("Hello Welcome to travelop where you plan your travel with ease. Would you state your name please?")
+        await self.session.say(
+            "Hello Welcome to travelop where you plan your travel with ease. Would you state your name please?",
+            allow_interruptions=False,
+        )
 
     @function_tool()
     async def collect_user_name(self, name: str):
@@ -138,7 +143,7 @@ class AskDetailsAgent(BaseAgent):
         """
         self.context.travel_details.budget = budget
         await self.add_or_update_user({"budget": budget})
-        return f"User's budget is {budget}. After adding the user button to the db, explain if this amount is enough for a trip and start summarizing and end the conversation"
+        return f"User's budget is {budget}. After adding the user button to the db, explain if this amount is enough for a trip and end the conversation politely"
 
 
     async def add_to_database(self):

@@ -13,6 +13,7 @@ dependencies = [
     "livekit-plugins-openai>=1.1.5",
     "livekit-plugins-silero>=1.1.5",
     "livekit-plugins-speechmatics>=1.1.5",
+    "livekit-plugins-turn-detector>=1.1.5",
     "pydantic>=2.11.7",
     "pymongo>=4.13.2",
     "python-dotenv>=1.1.1",
